@@ -1,11 +1,13 @@
+import { VARIANTS } from './volleyballRulesConfig';
 import { SET_STATUS } from './types/Match';
 export function migrateMatchToSetStatus(match) {
     if (!match) {
         return match;
     }
     const migrated = { ...match };
-    if (!migrated.variant || !['indoor', 'beach', 'snow'].includes(migrated.variant)) {
-        migrated.variant = 'indoor';
+    const validVariants = Object.values(VARIANTS);
+    if (!migrated.variant || !validVariants.includes(migrated.variant)) {
+        migrated.variant = VARIANTS.INDOOR;
     }
     if (Array.isArray(match.sets)) {
         migrated.sets = match.sets.map((set) => {

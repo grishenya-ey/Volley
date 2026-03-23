@@ -2,6 +2,7 @@
  * Миграция данных матча к структуре с состояниями партий (SET_STATUS).
  */
 
+import { VARIANTS } from './volleyballRulesConfig';
 import { SET_STATUS } from './types/Match';
 
 /** Объект партии при миграции (частичная структура) */
@@ -42,8 +43,9 @@ export function migrateMatchToSetStatus<T extends MatchForMigration>(match: T | 
 
   const migrated = { ...match } as MatchForMigration & T;
 
-  if (!migrated.variant || !['indoor', 'beach', 'snow'].includes(migrated.variant)) {
-    migrated.variant = 'indoor';
+  const validVariants = Object.values(VARIANTS);
+  if (!migrated.variant || !validVariants.includes(migrated.variant as (typeof validVariants)[number])) {
+    migrated.variant = VARIANTS.INDOOR;
   }
 
   if (Array.isArray(match.sets)) {
