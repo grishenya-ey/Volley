@@ -1,0 +1,95 @@
+{
+  "matchId": "test-match-fixture-1",
+  "tournament": "Тестовый турнир",
+  "tournamentSubtitle": "Финал",
+  "location": "Россия",
+  "venue": "Спортивный комплекс",
+  "date": "2024-01-15",
+  "time": "18:00",
+  "teamA": {
+    "name": "Команда Альфа",
+    "color": "#3498db",
+    "liberoColor": "#2980b9",
+    "coach": "Иванов И.И.",
+    "city": "Москва",
+    "roster": [
+      {
+        "number": 1,
+        "name": "Игрок 1",
+        "position": "Доигровщик",
+        "isStarter": true
+      },
+      {
+        "number": 2,
+        "name": "Игрок 2",
+        "position": "Связующий",
+        "isStarter": true
+      }
+    ]
+  },
+  "teamB": {
+    "name": "Команда Бета",
+    "color": "#e74c3c",
+    "liberoColor": "#c0392b",
+    "coach": "Петров П.П.",
+    "city": "Санкт-Петербург",
+    "roster": [
+      {
+        "number": 10,
+        "name": "Игрок 10",
+        "position": "Доигровщик",
+        "isStarter": true
+      },
+      {
+        "number": 11,
+        "name": "Игрок 11",
+        "position": "Связующий",
+        "isStarter": true
+      }
+    ]
+  },
+  "officials": {
+    "referee1": "Судья 1",
+    "referee2": "Судья 2",
+    "lineJudge1": "Линейный 1",
+    "lineJudge2": "Линейный 2",
+    "scorer": "Секретарь"
+  },
+  "sets": [
+    {
+      "setNumber": 1,
+      "scoreA": 25,
+      "scoreB": 20,
+      "completed": true
+    },
+    {
+      "setNumber": 2,
+      "scoreA": 22,
+      "scoreB": 25,
+      "completed": true
+    }
+  ],
+  "currentSet": {
+    "setNumber": 3,
+    "scoreA": 15,
+    "scoreB": 12,
+    "servingTeam": "A"
+  },
+  "statistics": {
+    "enabled": true,
+    "teamA": {
+      "attack": 15,
+      "block": 5,
+      "serve": 8,
+      "opponentErrors": 12
+    },
+    "teamB": {
+      "attack": 12,
+      "block": 4,
+      "serve": 6,
+      "opponentErrors": 10
+    }
+  },
+  "createdAt": "2024-01-15T10:00:00.000Z",
+  "updatedAt": "2024-01-15T18:30:00.000Z"
+}

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ТВ-табло</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Segoe UI", "Arial Narrow", Arial, sans-serif;
+      color: #fff;
+    }
+    
+    #app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Заголовок турнира */
+    .tournament-header {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(180deg, rgba(255,215,0,0.1) 0%, transparent 100%);
+    }
+    
+    .tournament-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ffd700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .tournament-subtitle {
+      font-size: 1.5rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
+    
+    .match-info {
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    
+    /* Основное табло */
+    .scoreboard {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    
+    .teams-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4rem;
+      width: 100%;
+      max-width: 1400px;
+    }
+    
+    .team {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .team-logo {
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+    
+    .team-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .team-name {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+    
+    .team-score {
+      font-size: 15rem;
+      font-weight: bold;
+      line-height: 1;
+      position: relative;
+    }
+    
+    .serve-indicator {
+      position: absolute;
+      top: 10%;
+      right: -20%;
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 25px solid #ffd700;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    
+    /* Тайм-ауты */
+    .timeouts {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .timeout-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.2);
+      transition: background-color 0.3s;
+    }
+    
+    .timeout-dot.used {
+      background: #ffd700;
+    }
+    
+    /* Индикаторы сетбола/матчбола */
+    .ball-indicator {
+      height: 2.5rem;
+    }
+    
+    .ball-badge {
+      padding: 0.5rem 1.5rem;
+      border-radius: 999px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      animation: pulse 1s infinite;
+    }
+    
+    .matchball {
+      background: #dc2626;
+      color: white;
+    }
+    
+    .setball {
+      background: #f59e0b;
+      color: white;
+    }
+    
+    /* Разделитель */
+    .separator {
+      font-size: 6rem;
+      color: #444;
+      font-weight: bold;
+    }
+    
+    /* Счет по партиям */
+    .sets-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .sets-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .set-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      opacity: 0.5;
+    }
+    
+    .set-box.completed {
+      opacity: 1;
+    }
+    
+    .set-label {
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 0.25rem;
+    }
+    
+    .set-score {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .set-winner {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 0.25rem;
+    }
+    
+    /* Текущая партия */
+    .current-set {
+      font-size: 1.8rem;
+      color: #ffd700;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Индикатор подключения */
+    .connection-status {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0,0,0,0.5);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      z-index: 1000;
+    }
+
+    /* Активный тайм-аут */
+    .active-timeout-banner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(245, 158, 11, 0.95);
+      color: white;
+      padding: 2rem 4rem;
+      border-radius: 1rem;
+      font-size: 3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 100;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      animation: pulse 1s infinite;
+    }
+
+    .active-timeout-timer {
+      font-size: 5rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .timeout-progress-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 5px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .timeout-progress-fill {
+      height: 100%;
+      background: white;
+      transition: width 0.1s linear;
+    }
+    
+    .connection-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .connection-dot.connected {
+      background: #22c55e;
+    }
+    
+    .connection-dot.disconnected {
+      background: #ef4444;
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    /* Нет данных */
+    .no-data {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="connection-status" id="connection-status">
+      <div class="connection-dot disconnected" id="connection-dot"></div>
+      <span id="connection-text">Нет подключения</span>
+    </div>
+    
+    <div id="scoreboard-container"></div>
+  </div>
+  
+  <script>
+    const API_BASE = window.location.origin;
+    let currentMatch = null;
+    
+    // Загрузка матча
+    async function loadMatch() {
+      try {
+        const response = await fetch(`${API_BASE}/api/match`);
+        if (response.ok) {
+          const match = await response.json();
+          currentMatch = match;
+          renderScoreboard(match);
+          updateConnectionStatus(true);
+        } else {
+          updateConnectionStatus(false);
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки матча:', error);
+        updateConnectionStatus(false);
+      }
+    }
+    
+    // Обновление статуса подключения
+    function updateConnectionStatus(connected) {
+      const dot = document.getElementById('connection-dot');
+      const text = document.getElementById('connection-text');
+      
+      if (connected) {
+        dot.className = 'connection-dot connected';
+        text.textContent = 'Подключено';
+      } else {
+        dot.className = 'connection-dot disconnected';
+        text.textContent = 'Нет подключения';
+      }
+    }
+    
+    // Рендеринг табло
+    function renderScoreboard(match) {
+      if (!match) {
+        document.getElementById('scoreboard-container').innerHTML = `
+          <div class="no-data">Нет данных матча</div>
+        `;
+        return;
+      }
+      
+      const { teamA, teamB, currentSet, sets, timeouts } = match;
+      const { scoreA, scoreB, servingTeam } = currentSet;
+
+      // Вычисляем сетбол/матчбол
+      const isSetball = checkSetball(match);
+      const isMatchball = checkMatchball(match);
+
+      // Рендеринг
+      const html = `
+        ${renderTournamentHeader(match)}
+        ${renderActiveTimeoutBanner(timeouts, match)}
+        <div class="scoreboard">
+          <div class="teams-container">
+            ${renderTeam(teamA, scoreA, servingTeam === 'A', timeouts?.teamA || 0, isMatchball === 'A', isSetball === 'A' && isMatchball !== 'A')}
+            <div class="separator">:</div>
+            ${renderTeam(teamB, scoreB, servingTeam === 'B', timeouts?.teamB || 0, isMatchball === 'B', isSetball === 'B' && isMatchball !== 'B')}
+          </div>
+
+          <div class="sets-container">
+            <div class="sets-grid">
+              ${renderSets(sets, teamA, teamB)}
+            </div>
+          </div>
+
+          <div class="current-set">Партия ${currentSet.setNumber}</div>
+        </div>
+      `;
+
+      document.getElementById('scoreboard-container').innerHTML = html;
+    }
+
+    function renderActiveTimeoutBanner(timeouts, match) {
+      if (!timeouts?.activeTimeout) return '';
+
+      const { team, startTime, duration } = timeouts.activeTimeout;
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, duration - elapsed);
+      const seconds = Math.ceil(remaining / 1000);
+      const percentage = (remaining / duration) * 100;
+      const teamName = team === 'A' ? match.teamA.name : match.teamB.name;
+      const teamColor = team === 'A' ? match.teamA.color : match.teamB.color;
+
+      return `
+        <div class="active-timeout-banner" style="border-left: 5px solid ${teamColor}">
+          <div>Тайм-аут: ${escapeHtml(teamName)}</div>
+          <div class="active-timeout-timer">${seconds}с</div>
+          <div class="timeout-progress-bar">
+            <div class="timeout-progress-fill" style="width: ${percentage}%"></div>
+          </div>
+        </div>
+      `;
+    }
+    
+    function renderTournamentHeader(match) {
+      if (!match.tournament && !match.tournamentSubtitle && !match.location && !match.venue && !match.date) {
+        return '';
+      }
+      
+      return `
+        <div class="tournament-header">
+          ${match.tournament ? `<div class="tournament-title">${escapeHtml(match.tournament)}</div>` : ''}
+          ${match.tournamentSubtitle ? `<div class="tournament-subtitle">${escapeHtml(match.tournamentSubtitle)}</div>` : ''}
+          ${match.location || match.venue || match.date ? `
+            <div class="match-info">
+              ${[match.location, match.venue].filter(Boolean).join(', ')}
+              ${match.date ? ` • ${match.date}` : ''}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+    
+    function renderTeam(team, score, isServing, timeoutsUsed, isMatchball, isSetball) {
+      const color = team.color || '#3498db';
+      
+      return `
+        <div class="team">
+          ${team.logo ? `
+            <div class="team-logo">
+              <img src="${team.logo}" alt="${escapeHtml(team.name)}">
+            </div>
+          ` : ''}
+          
+          <div class="team-name" style="color: ${color}">${escapeHtml(team.name)}</div>
+          
+          <div class="timeouts">
+            <div class="timeout-dot ${timeoutsUsed >= 1 ? 'used' : ''}"></div>
+            <div class="timeout-dot ${timeoutsUsed >= 2 ? 'used' : ''}"></div>
+          </div>
+          
+          <div class="team-score">
+            ${score}
+            ${isServing ? '<div class="serve-indicator"></div>' : ''}
+          </div>
+          
+          <div class="ball-indicator">
+            ${isMatchball ? `<div class="ball-badge matchball">Матчбол</div>` : ''}
+            ${isSetball && !isMatchball ? `<div class="ball-badge setball">Сетбол</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
+    
+    function renderSets(sets, teamA, teamB) {
+      let html = '';
+      
+      for (let i = 1; i <= 5; i++) {
+        const set = sets.find(s => s.setNumber === i);
+        const isCompleted = set && (set.completed || set.status === 'completed');
+        const winner = isCompleted ? (set.scoreA > set.scoreB ? 'A' : set.scoreB > set.scoreA ? 'B' : null) : null;
+        const winnerColor = winner === 'A' ? teamA.color : winner === 'B' ? teamB.color : '#888';
+        
+        html += `
+          <div class="set-box ${isCompleted ? 'completed' : ''}">
+            <div class="set-label">Партия ${i}</div>
+            <div class="set-score">${isCompleted ? `${set.scoreA} - ${set.scoreB}` : '-'}</div>
+            ${winner ? `<div class="set-winner" style="color: ${winnerColor}">●</div>` : ''}
+          </div>
+        `;
+      }
+      
+      return html;
+    }
+    
+    function checkSetball(match) {
+      const { currentSet } = match;
+      const { scoreA, scoreB, setNumber } = currentSet;
+      
+      // Получаем порог для сетбола
+      const isDecidingSet = setNumber === 3 || setNumber === 5;
+      const threshold = isDecidingSet ? 14 : 24;
+      
+      const maxScore = Math.max(scoreA, scoreB);
+      const minScore = Math.min(scoreA, scoreB);
+      
+      if (maxScore >= threshold && maxScore - minScore >= 1 && scoreA !== scoreB) {
+        return scoreA > scoreB ? 'A' : 'B';
+      }
+      
+      return null;
+    }
+    
+    function checkMatchball(match) {
+      const { sets, currentSet } = match;
+      const { scoreA, scoreB, setNumber } = currentSet;
+      
+      // Считаем победы по партиям
+      const winsA = sets.filter(s => (s.completed || s.status === 'completed') && s.scoreA > s.scoreB).length;
+      const winsB = sets.filter(s => (s.completed || s.status === 'completed') && s.scoreB > s.scoreA).length;
+      
+      // Для fast-indoor и beach/snow: setsToWinMatch = 2
+      // Для indoor: setsToWinMatch = 3
+      const setsToWinMatch = match.variant === 'indoor' ? 3 : 2;
+      const oneWinAway = setsToWinMatch - 1;
+      
+      if (winsA === oneWinAway || winsB === oneWinAway) {
+        const setballTeam = checkSetball(match);
+        if (setballTeam && ((setballTeam === 'A' && winsA === oneWinAway) || (setballTeam === 'B' && winsB === oneWinAway))) {
+          return setballTeam;
+        }
+      }
+      
+      return null;
+    }
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Инициализация
+    loadMatch();
+    
+    // Опрос каждую секунду
+    setInterval(loadMatch, 1000);
+  </script>
+</body>
+</html>

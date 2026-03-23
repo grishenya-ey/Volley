@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Составы</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: "Segoe UI", "Arial Narrow", Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #rosters-root {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      height: fit-content;
+      max-height: 1080px;
+      background: linear-gradient(165deg, rgba(30, 58, 95, 0.95) 0%, rgba(13, 33, 55, 0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 29px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    /* Полоска без scale — остаётся чёткой и видимой */
+    #rosters-root .top-strip {
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      opacity: 0.95;
+    }
+    /* Широкий блок и колонки с фамилиями */
+    #rosters-root .rosters-content { display: flex; padding: 34px 72px 34px; gap: 72px; justify-content: center; align-items: flex-start; }
+    #rosters-root .rosters-content .column { flex: 1 1 0; min-width: 380px; max-width: 620px; }
+    #rosters-root .team-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; min-height: 120px; }
+    #rosters-root .team-header img { width: 53px; height: 53px; object-fit: contain; flex-shrink: 0; }
+    #rosters-root .team-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
+    #rosters-root .coach { font-size: 17px; opacity: 0.85; margin-top: 5px; }
+    #rosters-root table { width: 100%; border-collapse: collapse; font-size: 20px; line-height: 1.3; }
+    #rosters-root th { text-align: left; padding: 5px 10px; border-bottom: 2px solid rgba(255,255,255,0.3); }
+    #rosters-root th:nth-child(2) { text-align: center; }
+    #rosters-root td { padding: 5px 10px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    #rosters-root td:first-child { width: 1%; white-space: nowrap; }
+    #rosters-root td.col-pos { text-align: center; white-space: nowrap; width: 1%; }
+    #rosters-root td:last-child { min-width: 0; }
+    #rosters-root #roster-list-a,
+    #rosters-root #roster-list-b { padding-bottom: 14px; }
+    #rosters-root .starter { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div id="rosters-root">
+    <div class="top-strip"></div>
+    <div class="rosters-content">
+    <div class="column">
+      <div class="team-header"><img id="roster-logo-a" alt="" /><div><div class="team-title" id="roster-name-a"></div><div class="coach" id="roster-coach-a"></div></div></div>
+      <div id="roster-list-a"></div>
+    </div>
+    <div class="column">
+      <div class="team-header"><img id="roster-logo-b" alt="" /><div><div class="team-title" id="roster-name-b"></div><div class="coach" id="roster-coach-b"></div></div></div>
+      <div id="roster-list-b"></div>
+    </div>
+    </div>
+  </div>
+  <script>
+    function safeText(el, text) {
+      if (!el) return;
+      el.textContent = text == null || text === '' ? '' : String(text);
+    }
+    function fetchData() {
+      return fetch('/api/overlay/match').then(function(r) { return r.json(); });
+    }
+    var pollInterval = 1000;
+
+    function buildTable(roster) {
+      if (!roster || !roster.length) return '';
+      var h = '<table><thead><tr><th>№</th><th>Поз.</th><th>Имя</th></tr></thead><tbody>';
+      roster.forEach(function(p) {
+        var pos = (p.positionShort != null && p.positionShort !== '') ? String(p.positionShort) : '—';
+        var name = (p.name != null ? String(p.name).replace(/</g, '&lt;').replace(/>/g, '&gt;') : '') + (p.isStarter ? '\u00A0*' : '');
+        h += '<tr class="' + (p.isStarter ? 'starter' : '') + '"><td>' + (p.number != null ? p.number : '') + '</td><td class="col-pos">' + pos + '</td><td>' + name + '</td></tr>';
+      });
+      return h + '</tbody></table>';
+    }
+
+    function renderRosters(data) {
+      if (!data) return;
+      safeText(document.getElementById('roster-name-a'), data.teamA && data.teamA.name);
+      safeText(document.getElementById('roster-name-b'), data.teamB && data.teamB.name);
+      safeText(document.getElementById('roster-coach-a'), data.teamA && data.teamA.coach ? 'Тренер: ' + data.teamA.coach : '');
+      safeText(document.getElementById('roster-coach-b'), data.teamB && data.teamB.coach ? 'Тренер: ' + data.teamB.coach : '');
+      var imgA = document.getElementById('roster-logo-a');
+      var imgB = document.getElementById('roster-logo-b');
+      if (imgA) { imgA.style.display = data.teamA && data.teamA.logoUrl ? '' : 'none'; imgA.src = (data.teamA && data.teamA.logoUrl) || ''; }
+      if (imgB) { imgB.style.display = data.teamB && data.teamB.logoUrl ? '' : 'none'; imgB.src = (data.teamB && data.teamB.logoUrl) || ''; }
+      var listA = document.getElementById('roster-list-a');
+      var listB = document.getElementById('roster-list-b');
+      if (listA) listA.innerHTML = buildTable(data.teamA && data.teamA.roster);
+      if (listB) listB.innerHTML = buildTable(data.teamB && data.teamB.roster);
+    }
+
+    (function() {
+      function tick() {
+        fetchData().then(function(data) { renderRosters(data); }).catch(function() {});
+      }
+      tick();
+      setInterval(tick, pollInterval);
+    })();
+  </script>
+</body>
+</html>

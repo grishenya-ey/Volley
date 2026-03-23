@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Начальный титр</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: "Segoe UI", "Arial Narrow", Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #intro-root {
+      padding: 0 0 80px;
+      text-align: center;
+      width: fit-content;
+      height: fit-content;
+      background: linear-gradient(165deg, rgba(30, 58, 95, 0.95) 0%, rgba(13, 33, 55, 0.95) 100%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 7px;
+      overflow: hidden;
+      box-shadow: 0 5px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    #intro-root .top-strip {
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+      opacity: 0.95;
+      margin-bottom: 0;
+    }
+    #intro-root .intro-content { padding: 80px 120px 0; }
+    #intro-root .tournament { font-size: 48px; font-weight: 700; margin-bottom: 8px; }
+    #intro-root .subtitle { font-size: 28px; opacity: 0.9; margin-bottom: 24px; }
+    #intro-root .teams { display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; margin-top: 56px; margin-bottom: 56px; }
+    #intro-root .venue { font-size: 32px; margin-bottom: 12px; }
+    #intro-root .datetime { font-size: 26px; opacity: 0.9; }
+    #intro-root .team { display: flex; align-items: center; gap: 32px; }
+    /* Команда A: логотип слева от названия. Команда B: название слева, логотип справа */
+    #intro-root .team img { width: 160px; height: 160px; object-fit: contain; flex-shrink: 0; }
+    #intro-root .team-info { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    #intro-root .team.team-b .team-info { align-items: flex-end; }
+    #intro-root .team-name { font-size: 48px; font-weight: 600; }
+    #intro-root .team-city { font-size: 32px; opacity: 0.9; }
+    #intro-root .vs { font-size: 40px; opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <div id="intro-root">
+    <div class="top-strip"></div>
+    <div class="intro-content">
+      <div class="tournament" id="intro-tournament"></div>
+      <div class="subtitle" id="intro-subtitle"></div>
+      <div class="teams">
+        <div class="team"><img id="intro-logo-a" alt="" /><div class="team-info"><span class="team-name" id="intro-name-a"></span><span class="team-city" id="intro-city-a"></span></div></div>
+        <span class="vs">—</span>
+        <div class="team team-b"><div class="team-info"><span class="team-name" id="intro-name-b"></span><span class="team-city" id="intro-city-b"></span></div><img id="intro-logo-b" alt="" /></div>
+      </div>
+      <div class="venue" id="intro-venue"></div>
+      <div class="datetime" id="intro-datetime"></div>
+    </div>
+  </div>
+  <script>
+    function safeText(el, text) {
+      if (!el) return;
+      el.textContent = text == null || text === '' ? '' : String(text);
+    }
+    function fetchData() {
+      return fetch('/api/overlay/match').then(function(r) { return r.json(); });
+    }
+    /** Формат даты как в vMix: ДД.ММ.ГГГГ ЧЧ:ММ */
+    function formatMatchDate(dateStr, timeStr) {
+      if (!dateStr) return '';
+      var d = String(dateStr).split('-');
+      if (d.length !== 3) return dateStr;
+      var time = (timeStr || '').substring(0, 5);
+      return time ? d[2] + '.' + d[1] + '.' + d[0] + ' ' + time : d[2] + '.' + d[1] + '.' + d[0];
+    }
+    var pollInterval = 1000;
+
+    function renderIntro(data) {
+      if (!data) return;
+      safeText(document.getElementById('intro-tournament'), data.tournament);
+      safeText(document.getElementById('intro-subtitle'), data.tournamentSubtitle);
+      var venue = [data.venue, data.location].filter(Boolean).join(' • ');
+      safeText(document.getElementById('intro-venue'), venue);
+      var dt = (data.matchDate && data.matchDate.trim()) ? data.matchDate : formatMatchDate(data.date, data.time);
+      safeText(document.getElementById('intro-datetime'), dt);
+      safeText(document.getElementById('intro-name-a'), data.teamA && data.teamA.name);
+      safeText(document.getElementById('intro-city-a'), data.teamA && data.teamA.city);
+      safeText(document.getElementById('intro-name-b'), data.teamB && data.teamB.name);
+      safeText(document.getElementById('intro-city-b'), data.teamB && data.teamB.city);
+      var imgA = document.getElementById('intro-logo-a');
+      var imgB = document.getElementById('intro-logo-b');
+      if (imgA) { imgA.style.display = data.teamA && data.teamA.logoUrl ? '' : 'none'; imgA.src = (data.teamA && data.teamA.logoUrl) || ''; }
+      if (imgB) { imgB.style.display = data.teamB && data.teamB.logoUrl ? '' : 'none'; imgB.src = (data.teamB && data.teamB.logoUrl) || ''; }
+    }
+
+    (function() {
+      function tick() {
+        fetchData().then(function(data) { renderIntro(data); }).catch(function() {});
+      }
+      tick();
+      setInterval(tick, pollInterval);
+    })();
+  </script>
+</body>
+</html>

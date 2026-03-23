@@ -1,0 +1,50 @@
+# Документация по тестированию
+
+Эта папка содержит всю документацию, связанную с тестированием проекта VolleyScore Master.
+
+## 📖 Основные документы
+
+### Начало работы
+- **[Быстрый старт](TESTING_QUICK_START.md)** - быстрое начало работы с тестами
+- **[Настройка тестирования](TESTING_SETUP_GUIDE.md)** - подробная инструкция по настройке окружения для тестирования
+
+### Руководства
+- **[Руководство по тестированию](TESTING.md)** - основное руководство по тестированию приложения
+
+## 🎯 Структура
+
+```
+testing/
+├── README.md                        # Этот файл
+├── TESTING.md                       # Основное руководство
+├── TESTING_QUICK_START.md           # Быстрый старт
+└── TESTING_SETUP_GUIDE.md           # Настройка окружения
+```
+
+## 📂 Новые и обновлённые тесты (2026-02-04)
+
+Добавлены и исправлены юнит-тесты для рефакторинга инпутов vMix и страницы мобильного доступа:
+
+| Каталог | Файл | Описание |
+|---------|------|----------|
+| `tests/unit/shared/` | `getValueByDataMapKey.test.js` | Извлечение значений из матча по ключам dataMapCatalog |
+| `tests/unit/main/` | `vmix-overlay-utils.test.ts` | URL логотипов, поиск конфига инпута (vmix-overlay-utils) |
+| `tests/unit/renderer/` | `VMixOverlayButtons.test.jsx` | Динамические кнопки плашек, показ/скрытие оверлеев |
+| `tests/unit/renderer/` | `VMixInputFieldsPanel.test.jsx` | Аккордеон полей, сопоставление, «Не сопоставлено» |
+| `tests/unit/renderer/` | `useVMix-dynamic-inputs.test.js` | Динамические инпуты useVMix, vmixTitle/vmixNumber, updateMatchData |
+| `tests/unit/renderer/` | `VMixSettingsPage.test.jsx` | Сохранение настроек, forceUpdateVMix, список инпутов с draggable |
+| `tests/unit/renderer/` | `MobileAccessPage.test.jsx` | Исправлены падающие тесты (getByRole, running в моках, window.electronAPI) |
+
+Запуск только файла тестов: `npm run test -- --run tests/unit/renderer/MobileAccessPage.test.jsx`
+
+## 🚀 Быстрый старт
+
+1. Начните с [Быстрого старта](TESTING_QUICK_START.md)
+2. Настройте окружение по [Руководству по настройке](TESTING_SETUP_GUIDE.md)
+3. Изучите [Основное руководство](TESTING.md) для понимания процесса тестирования
+
+## 📚 Связанная документация
+
+- [Главная документация](../README.md)
+- [Архитектура проекта](../architecture/ARCHITECTURE.md)
+- [QA Аудит](../development/QA_AUDIT_REPORT.md)

@@ -1,0 +1,319 @@
+﻿<vmix>
+    <version>29.0.0.45</version>
+    <edition>Pro</edition>
+    <preset>D:\VIDEO\2026-01-10 - Волейбол ЧР Лига Б\Волайбол ЧР Лига Б.vmix</preset>
+    <inputs>
+        <input key="cfe48c45-f4bd-4e37-b814-ba4b82695ff3" number="1" type="NDI" title="CAM 1"
+            shortTitle="CAM 1" state="Running" position="0" duration="0" loop="False" muted="True"
+            volume="0" balance="0" solo="False" soloPFL="False" audiobusses="M" meterF1="0"
+            meterF2="0" gainDb="0">CAM 1<overlay index="8"
+                key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" /><overlay index="9"
+                key="a398bac8-a838-4201-b43b-fa5e4e93da55" /></input>
+        <input key="9ce02e89-087f-497e-a053-eeaac6eb54db" number="2" type="NDI" title="CAM 2"
+            shortTitle="CAM 2" state="Running" position="0" duration="0" loop="False" muted="True"
+            volume="0" balance="0" solo="False" soloPFL="False" audiobusses="M" meterF1="0"
+            meterF2="0" gainDb="0">CAM 2<overlay index="8"
+                key="a398bac8-a838-4201-b43b-fa5e4e93da55" /><overlay index="9"
+                key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" /></input>
+        <input key="c4379b84-3768-4d85-890f-845dea192de6" number="3" type="NDI" title="CAM 3"
+            shortTitle="CAM 3" state="Running" position="0" duration="0" loop="False" muted="True"
+            volume="0" balance="0" solo="False" soloPFL="False" audiobusses="M" meterF1="0"
+            meterF2="0" gainDb="0">CAM 3<overlay index="8"
+                key="a398bac8-a838-4201-b43b-fa5e4e93da55" /><overlay index="9"
+                key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" /></input>
+        <input key="eb72b6df-f49c-4ff0-b6f7-0fa1eba27d28" number="4" type="Colour" title="CAM 4"
+            shortTitle="CAM 4" state="Paused" position="0" duration="0" loop="False">CAM 4</input>
+        <input key="eff8a313-4bce-4ff6-9e91-85ea84324c16" number="5" type="VideoList" title="VIDEO"
+            shortTitle="VIDEO" state="Completed" position="0" duration="0" loop="False" muted="True"
+            volume="100" balance="0" solo="False" soloPFL="False" audiobusses="M" meterF1="0"
+            meterF2="0" selectedIndex="1">VIDEO<list /></input>
+        <input key="6e08f361-e5e1-41e7-afc2-0e40542fa7b7" number="6" type="Replay"
+            title="REPLAY_VOLEYBALL - A" shortTitle="REPLAY_VOLEYBALL" state="Paused" position="0"
+            duration="4373760" loop="False" muted="True" volume="0" balance="0" solo="False"
+            soloPFL="False" audiobusses="M" meterF1="0" meterF2="0" gainDb="0">REPLAY_VOLEYBALL - A<overlay
+                index="8" key="a398bac8-a838-4201-b43b-fa5e4e93da55" /><overlay index="9"
+                key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" /><replay live="False" recording="False"
+                channelMode="AB" events="1" eventsA="1" eventsB="1" cameraA="1" cameraB="1"
+                speed="0.899999976158142" speedA="0.899999976158142" speedB="1">
+                <timecode>2026-01-25T09:59:53.000</timecode>
+                <timecodeA>2026-01-25T09:59:53.000</timecodeA>
+                <timecodeB>0001-01-01T00:00:00.000</timecodeB>
+            </replay></input>
+        <input key="5b041a32-8396-4d72-8a24-c464df5d2a59" number="7" type="ReplayPreview"
+            title="REPLAY_VOLEYBALL - B" shortTitle="REPLAY_VOLEYBALL - B" state="Paused"
+            position="0" duration="4373760" loop="False" muted="True" volume="0" balance="0"
+            solo="False" soloPFL="False" audiobusses="" meterF1="0" meterF2="0" gainDb="0">REPLAY_VOLEYBALL
+            - B<overlay index="7" key="a398bac8-a838-4201-b43b-fa5e4e93da55" /><overlay index="8"
+                key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" /></input>
+        <input key="a398bac8-a838-4201-b43b-fa5e4e93da55" number="8" type="Placeholder"
+            title="Offline - Интершум" shortTitle="Интершум" state="Paused" position="0"
+            duration="0" loop="False">Offline - Интершум</input>
+        <input key="d12c47b5-9b62-49bb-bca5-c5afd8207f1b" number="9" type="Placeholder"
+            title="Offline - Комментаторы" shortTitle="Комментаторы" state="Paused" position="0"
+            duration="0" loop="False">Offline - Комментаторы</input>
+        <input key="90fbc558-6019-4b3d-95ad-a6df19f2eca3" number="10" type="GT" title="SCORE"
+            shortTitle="SCORE" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">SCORE<text index="0" name="Count_Team1.Text">17</text><text index="1"
+                name="Count_Team2.Text">25</text><text index="2" name="Score_Team1.Text">0</text><text
+                index="3" name="Score_Team2.Text">3</text><text index="4" name="Name_Team1.Text">
+            Волжаночка-ГРАСС</text><text index="5" name="Name_Team2.Text">Брянск</text><text
+                index="6" name="Point_Team1.Text">●</text><text index="7" name="Point_Team2.Text">●</text><color
+                index="0" name="Color_Team1.Fill.Color">#000000</color><color index="1"
+                name="Color_Team2.Fill.Color">#47daff</color></input>
+        <input key="b7e3f35c-687a-436e-aa5f-b3909b42c5c7" number="11" type="GT" title="SUMMARY"
+            shortTitle="SUMMARY" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">SUMMARY<text index="0" name="SubCapture.Text">2026 Волейбол</text><text
+                index="1" name="Capture.Text">Высшая лига "Б" Чемпионат России. Женщины</text><text
+                index="2" name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="3"
+                name="City_Team1.Text">Волгоград</text><text index="4" name="Name_Team2.Text">Брянск</text><text
+                index="5" name="City_Team2.Text">Брянск</text><text index="6" name="PlaceData.Text">ФОК
+            "Альянс-Баскет"</text><text index="7" name="PlaceData1.Text">Волгоград</text><text
+                index="8" name="PlaceData2.Text">25.01.2026 10:00</text><image index="0"
+                name="Logo_Team1.Source">
+            http://192.168.146.192:3000/logos/logo_a_1769320934943.png?t=1769328729817</image><image
+                index="1" name="Logo_Team2.Source">
+            http://192.168.146.192:3000/logos/logo_b_1769320934945.png?t=1769328729817</image></input>
+        <input key="c74a3c33-dcbe-4d09-8bd0-6dd904f88aec" number="12" type="GT" title="HOME"
+            shortTitle="HOME" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">HOME<text index="0" name="Заголовок год.Text">2026 Волейбол</text><text
+                index="1" name="Заголовок.Text">Высшая лига "Б" Чемпионат России. Женщины</text><text
+                index="2" name="Команда.Text">Волжаночка-ГРАСС</text><text index="3"
+                name="Город команды.Text">Волгоград</text><text index="4" name="Номер1.Text">1</text><text
+                index="5" name="И. Фамилия1.Text">Хохлова Дарья</text><text index="6"
+                name="Номер2.Text">3</text><text index="7" name="И. Фамилия2.Text">Юдина Ева</text><text
+                index="8" name="Номер3.Text">5</text><text index="9" name="И. Фамилия3.Text">Пустотина
+            Ксения</text><text index="10" name="Номер4.Text">6</text><text index="11"
+                name="И. Фамилия4.Text">Иванова Елизавета</text><text index="12" name="Номер5.Text">
+            7</text><text index="13" name="И. Фамилия5.Text">Буялова Анастасия</text><text
+                index="14" name="Номер6.Text">8</text><text index="15" name="И. Фамилия6.Text">Кравченко
+            Злата</text><text index="16" name="Номер7.Text">9</text><text index="17"
+                name="И. Фамилия7.Text">Михайлина Варвара</text><text index="18" name="Номер8.Text">
+            10</text><text index="19" name="И. Фамилия8.Text">Багрова Софья</text><text index="20"
+                name="Номер9.Text">12</text><text index="21" name="И. Фамилия9.Text">Бородина
+            Александра</text><text index="22" name="Номер10.Text">13</text><text index="23"
+                name="И. Фамилия10.Text">Малютина Вероника</text><text index="24"
+                name="Номер11.Text">14</text><text index="25" name="И. Фамилия11.Text">Щербакова
+            Екатерина</text><text index="26" name="Номер12.Text">15</text><text index="27"
+                name="И. Фамилия12.Text">Никитина Арина</text><text index="28" name="Номер13.Text">
+            16</text><text index="29" name="И. Фамилия13.Text">Алавердян Сима</text><text index="30"
+                name="Номер14.Text"></text><text index="31" name="И. Фамилия14.Text"></text><image
+                index="0" name="Логотип.Source">
+            http://192.168.146.192:3000/logos/logo_a_1769320934943.png?t=1769328729948</image></input>
+        <input key="45c98257-c5a7-49a3-ab11-7c00a49523a8" number="13" type="GT" title="AWAY"
+            shortTitle="AWAY" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">AWAY<text index="0" name="Заголовок год.Text">2026 Волейбол</text><text
+                index="1" name="Заголовок.Text">Высшая лига "Б" Чемпионат России. Женщины</text><text
+                index="2" name="Команда.Text">Брянск</text><text index="3" name="Город команды.Text">
+            Брянск</text><text index="4" name="Номер1.Text">1</text><text index="5"
+                name="И. Фамилия1.Text">Ососкова Александра</text><text index="6" name="Номер2.Text">
+            2</text><text index="7" name="И. Фамилия2.Text">Сероносова Ксения</text><text index="8"
+                name="Номер3.Text">4</text><text index="9" name="И. Фамилия3.Text">Зотова Оксана</text><text
+                index="10" name="Номер4.Text">5</text><text index="11" name="И. Фамилия4.Text">Куликова
+            Лада</text><text index="12" name="Номер5.Text">6</text><text index="13"
+                name="И. Фамилия5.Text">Болдырева Анастасия</text><text index="14"
+                name="Номер6.Text">8</text><text index="15" name="И. Фамилия6.Text">Стулова Ксения</text><text
+                index="16" name="Номер7.Text">8</text><text index="17" name="И. Фамилия7.Text">Матыцына
+            Мария</text><text index="18" name="Номер8.Text">10</text><text index="19"
+                name="И. Фамилия8.Text">Кутузова Алина</text><text index="20" name="Номер9.Text">11</text><text
+                index="21" name="И. Фамилия9.Text">Соколова Кристина</text><text index="22"
+                name="Номер10.Text">12</text><text index="23" name="И. Фамилия10.Text">Богданова
+            Александра</text><text index="24" name="Номер11.Text">13</text><text index="25"
+                name="И. Фамилия11.Text">Аброськина Эльвира</text><text index="26"
+                name="Номер12.Text">15</text><text index="27" name="И. Фамилия12.Text">Яковлева
+            Дарья</text><text index="28" name="Номер13.Text"></text><text index="29"
+                name="И. Фамилия13.Text"></text><text index="30" name="Номер14.Text"></text><text
+                index="31" name="И. Фамилия14.Text"></text><image index="0" name="Логотип.Source">
+            http://192.168.146.192:3000/logos/logo_b_1769320934945.png?t=1769328730104</image></input>
+        <input key="d21799a9-e734-4ee7-9015-be66cfee67c8" number="14" type="GT" title="TITLES"
+            shortTitle="TITLES" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">TITLES<text index="0" name="Судья.Text">Кривонкин Иван</text><text
+                index="1" name="Должность.Text">Первый судья</text></input>
+        <input key="d2ff769d-e8ad-4766-b473-8168a1cec41b" number="15" type="ImageSequence"
+            title="STINGER" shortTitle="STINGER" state="Completed" position="0" duration="89"
+            loop="False">STINGER</input>
+        <input key="807bd7a4-89bd-42a1-9381-47e262cf379b" number="16" type="GT" title="LINEUP HOME"
+            shortTitle="LINEUP HOME" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">LINEUP HOME<text index="0" name="Заголовок год.Text">2026 Волейбол</text><text
+                index="1" name="Заголовок.Text">Высшая лига "Б" Чемпионат России. Женщины</text><text
+                index="2" name="Команда.Text">Волжаночка-ГРАСС</text><text index="3"
+                name="Город команды.Text">Волгоград</text><text index="4" name="Номер1.Text">13</text><text
+                index="5" name="И. Фамилия1.Text">Малютина Вероника</text><text index="6"
+                name="Номер2.Text">10</text><text index="7" name="И. Фамилия2.Text">Багрова Софья</text><text
+                index="8" name="Номер3.Text">7</text><text index="9" name="И. Фамилия3.Text">Буялова
+            Анастасия</text><text index="10" name="Номер4.Text">3</text><text index="11"
+                name="И. Фамилия4.Text">Юдина Ева</text><text index="12" name="Номер5.Text">8</text><text
+                index="13" name="И. Фамилия5.Text">Кравченко Злата</text><text index="14"
+                name="Номер6.Text">15</text><text index="15" name="И. Фамилия6.Text">Никитина Арина</text><text
+                index="16" name="НомерЛиберо1.Text">12</text><text index="17"
+                name="И. ФамилияЛиб1.Text">Бородина Александра</text><text index="18"
+                name="НомерЛиберо2.Text">16</text><text index="19" name="И. ФамилияЛиб2.Text">Алавердян
+            Сима</text><text index="20" name="Зона1.Text">13</text><text index="21"
+                name="Зона2.Text">10</text><text index="22" name="Зона3.Text">7</text><text
+                index="23" name="Зона4.Text">3</text><text index="24" name="Зона5.Text">8</text><text
+                index="25" name="Зона6.Text">15</text><text index="26" name="Либеро1.Text">12</text><text
+                index="27" name="Либеро2.Text">16</text><image index="0" name="Логотип.Source">
+            http://192.168.146.192:3000/logos/logo_a_1769320934943.png?t=1769328730264</image><color
+                index="0" name="ПодложкаЛиберо1.Fill.Color">#FFFFFF</color><color index="1"
+                name="ПодложкаЛиберо2.Fill.Color">#FFFFFF</color><color index="2"
+                name="ПодложкаЛибПло1.Fill.Color">#FFFFFF</color><color index="3"
+                name="ПодложкаЛибПло2.Fill.Color">#FFFFFF</color></input>
+        <input key="54537e78-e735-4538-aecb-238f66de521c" number="17" type="GT" title="LINEUP AWAY"
+            shortTitle="LINEUP AWAY" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">LINEUP AWAY<text index="0" name="Заголовок год.Text">2026 Волейбол</text><text
+                index="1" name="Заголовок.Text">Высшая лига "Б" Чемпионат России. Женщины</text><text
+                index="2" name="Команда.Text">Брянск</text><text index="3" name="Город команды.Text">
+            Брянск</text><text index="4" name="Номер1.Text">8</text><text index="5"
+                name="И. Фамилия1.Text">Стулова Ксения</text><text index="6" name="Номер2.Text">5</text><text
+                index="7" name="И. Фамилия2.Text">Куликова Лада</text><text index="8"
+                name="Номер3.Text">11</text><text index="9" name="И. Фамилия3.Text">Соколова
+            Кристина</text><text index="10" name="Номер4.Text">2</text><text index="11"
+                name="И. Фамилия4.Text">Сероносова Ксения</text><text index="12" name="Номер5.Text">
+            15</text><text index="13" name="И. Фамилия5.Text">Яковлева Дарья</text><text index="14"
+                name="Номер6.Text">13</text><text index="15" name="И. Фамилия6.Text">Аброськина
+            Эльвира</text><text index="16" name="НомерЛиберо1.Text">6</text><text index="17"
+                name="И. ФамилияЛиб1.Text">Болдырева Анастасия</text><text index="18"
+                name="НомерЛиберо2.Text">9</text><text index="19" name="И. ФамилияЛиб2.Text">Матыцына
+            Мария</text><text index="20" name="Зона1.Text">8</text><text index="21"
+                name="Зона2.Text">5</text><text index="22" name="Зона3.Text">11</text><text
+                index="23" name="Зона4.Text">2</text><text index="24" name="Зона5.Text">15</text><text
+                index="25" name="Зона6.Text">13</text><text index="26" name="Либеро1.Text">6</text><text
+                index="27" name="Либеро2.Text">9</text><image index="0" name="Логотип.Source">
+            http://192.168.146.192:3000/logos/logo_b_1769320934945.png?t=1769328730428</image><color
+                index="0" name="ПодложкаЛиберо1.Fill.Color">#B68FD6</color><color index="1"
+                name="ПодложкаЛиберо2.Fill.Color">#B68FD6</color><color index="2"
+                name="ПодложкаЛибПло1.Fill.Color">#B68FD6</color><color index="3"
+                name="ПодложкаЛибПло2.Fill.Color">#B68FD6</color></input>
+        <input key="9afb4104-3a80-42e2-896b-40877a38e0b4" number="18" type="GT" title="REFEREES"
+            shortTitle="REFEREES" state="Paused" position="0" duration="0" loop="False"
+            selectedIndex="0">REFEREES<text index="0" name="Судья1.Text">Кривонкин Иван</text><text
+                index="1" name="Судья2.Text">Суслин Владислав</text></input>
+        <input key="1d40b1b5-3b91-43b8-8a2b-d7b4bb83909d" number="19" type="GT"
+            title="Setball1ScoreUpVFV2024.gtzip" shortTitle="Setball1ScoreUpVFV2024.gtzip"
+            state="Paused" position="0" duration="0" loop="False" selectedIndex="0">
+            Setball1ScoreUpVFV2024.gtzip<position panX="0.01" /><text index="0" name="SM_Team1.Text">
+            МАТЧБОЛ</text><color index="0" name="SM_Team1_BG.Fill.Color">#12123C</color></input>
+        <input key="e51c8ecc-aeb5-47da-974e-0c3b6d2bcb45" number="20" type="GT"
+            title="Setball2ScoreUpVFV2024.gtzip" shortTitle="Setball2ScoreUpVFV2024.gtzip"
+            state="Paused" position="0" duration="0" loop="False" selectedIndex="0">
+            Setball2ScoreUpVFV2024.gtzip<position panX="0.01" /><text index="0" name="SM_Team2.Text">
+            СЕТБОЛ</text><color index="0" name="SM_Team2_BG.Fill.Color">#12123C</color></input>
+        <input key="6f690647-54e4-4eec-82cc-523084edefc7" number="21" type="GT"
+            title="ScoreDn_x1.gtzip" shortTitle="ScoreDn_x1.gtzip" state="Paused" position="0"
+            duration="0" loop="False" selectedIndex="0">ScoreDn_x1.gtzip<text index="0"
+                name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="1" name="Name_Team2.Text">
+            Брянск</text><text index="2" name="Score_Team1.Text">0</text><text index="3"
+                name="Score_Team2.Text">1</text><text index="4" name="Time_Set1.Text">24'</text><text
+                index="5" name="Team1_Pos1.Text">23</text><text index="6" name="Team2_Pos1.Text">25</text><text
+                index="7" name="Time.Text">время</text><image index="0" name="Plashka.Source">
+            18f04422-7a60-4d15-a6b0-144293e16028\title_Lowerthird_dynamics_x1_000.png</image></input>
+        <input key="a5074f0f-ea17-46ce-9730-d741f2dda253" number="22" type="GT"
+            title="ScoreDn_x2.gtzip" shortTitle="ScoreDn_x2.gtzip" state="Paused" position="0"
+            duration="0" loop="False" selectedIndex="0">ScoreDn_x2.gtzip<text index="0"
+                name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="1" name="Name_Team2.Text">
+            Брянск</text><text index="2" name="Score_Team1.Text">0</text><text index="3"
+                name="Score_Team2.Text">2</text><text index="4" name="Time_Set1.Text">24'</text><text
+                index="5" name="Team1_Pos1.Text">23</text><text index="6" name="Team2_Pos1.Text">25</text><text
+                index="7" name="Time_Set2.Text">20'</text><text index="8" name="Team1_Pos2.Text">15</text><text
+                index="9" name="Team2_Pos2.Text">25</text><text index="10" name="Time.Text">время</text><image
+                index="0" name="Plashka.Source">
+            fe099596-597a-416a-a411-ab97cdbe0f91\title_Lowerthird_dynamics_x2_000.png</image></input>
+        <input key="ec4b5ba4-0953-41d8-960c-b21d00f3171b" number="23" type="GT"
+            title="ScoreDn_x3.gtzip" shortTitle="ScoreDn_x3.gtzip" state="Paused" position="0"
+            duration="0" loop="False" selectedIndex="0">ScoreDn_x3.gtzip<text index="0"
+                name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="1" name="Name_Team2.Text">
+            Брянск</text><text index="2" name="Score_Team1.Text">0</text><text index="3"
+                name="Score_Team2.Text">3</text><text index="4" name="Time_Set1.Text">24'</text><text
+                index="5" name="Team1_Pos1.Text">23</text><text index="6" name="Team2_Pos1.Text">25</text><text
+                index="7" name="Time_Set2.Text">20'</text><text index="8" name="Team1_Pos2.Text">15</text><text
+                index="9" name="Team2_Pos2.Text">25</text><text index="10" name="Time_Set3.Text">22'</text><text
+                index="11" name="Team1_Pos3.Text">17</text><text index="12" name="Team2_Pos3.Text">
+            25</text><text index="13" name="Time.Text">время</text><image index="0"
+                name="Plashka.Source">
+            f2c550c3-ab7b-4ca9-9734-e62867f35df6\title_Lowerthird_dynamics_x3_000.png</image></input>
+        <input key="e25a16d7-0053-42c8-bbb2-0c329a6a8169" number="24" type="GT"
+            title="ScoreDn_x4.gtzip" shortTitle="ScoreDn_x4.gtzip" state="Paused" position="0"
+            duration="0" loop="False" selectedIndex="0">ScoreDn_x4.gtzip<text index="0"
+                name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="1" name="Name_Team2.Text">
+            Брянск</text><text index="2" name="Score_Team1.Text">0</text><text index="3"
+                name="Score_Team2.Text">3</text><text index="4" name="Time_Set1.Text">24'</text><text
+                index="5" name="Team1_Pos1.Text">23</text><text index="6" name="Team2_Pos1.Text">25</text><text
+                index="7" name="Time_Set2.Text">20'</text><text index="8" name="Team1_Pos2.Text">15</text><text
+                index="9" name="Team2_Pos2.Text">25</text><text index="10" name="Time_Set3.Text">22'</text><text
+                index="11" name="Team1_Pos3.Text">17</text><text index="12" name="Team2_Pos3.Text">
+            25</text><text index="13" name="Time_Set4.Text"></text><text index="14"
+                name="Team1_Pos4.Text"></text><text index="15" name="Team2_Pos4.Text"></text><text
+                index="16" name="Time.Text">время</text><image index="0" name="Plashka.Source">
+            be9cc139-72a9-4058-9073-69e655f7b083\title_Lowerthird_dynamics_x4_000.png</image></input>
+        <input key="5a1ccf5c-a13b-4e2e-b632-1ae0682a227e" number="25" type="GT"
+            title="ScoreDn_x5.gtzip" shortTitle="ScoreDn_x5.gtzip" state="Paused" position="0"
+            duration="0" loop="False" selectedIndex="0">ScoreDn_x5.gtzip<text index="0"
+                name="Name_Team1.Text">Волжаночка-ГРАСС</text><text index="1" name="Name_Team2.Text">
+            Брянск</text><text index="2" name="Score_Team1.Text">0</text><text index="3"
+                name="Score_Team2.Text">3</text><text index="4" name="TimeSet1.Text">00'</text><text
+                index="5" name="Team1_Pos1.Text">23</text><text index="6" name="Team2_Pos1.Text">25</text><text
+                index="7" name="TimeSet2.Text">00'</text><text index="8" name="Team1_Pos2.Text">15</text><text
+                index="9" name="Team2_Pos2.Text">25</text><text index="10" name="TimeSet3.Text">00'</text><text
+                index="11" name="Team1_Pos3.Text">17</text><text index="12" name="Team2_Pos3.Text">
+            25</text><text index="13" name="TimeSet4.Text">00'</text><text index="14"
+                name="Team1_Pos4.Text"></text><text index="15" name="Team2_Pos4.Text"></text><text
+                index="16" name="TimeSet5.Text"></text><text index="17" name="Team1_Pos5.Text"></text><text
+                index="18" name="Team2_Pos5.Text"></text><text index="19" name="Time.Text">время</text><image
+                index="0" name="Plashka.Source">
+            bce6eeda-9610-48b3-854a-fbe6b3e735e9\title_Lowerthird_dynamics_x5_000.png</image></input>
+    </inputs>
+    <outputs>
+        <output type="fullscreen" number="1" source="MultiView" />
+        <output type="fullscreen" number="2" source="Replay" />
+        <output type="output" number="1" source="Output" ndi="True" />
+        <output type="output" number="2" source="MultiView" ndi="True" />
+        <output type="output" number="3" source="Output" ndi="True" />
+        <output type="output" number="4" source="Output" ndi="True" />
+    </outputs>
+    <overlays>
+        <overlay number="1" />
+        <overlay number="2" />
+        <overlay number="3" />
+        <overlay number="4" />
+        <overlay number="5" />
+        <overlay number="6" />
+        <overlay number="7" />
+        <overlay number="8" />
+        <overlay number="9" />
+        <overlay number="10" />
+        <overlay number="11" />
+        <overlay number="12" />
+        <overlay number="13" />
+        <overlay number="14" />
+        <overlay number="15" />
+        <overlay number="16" />
+    </overlays>
+    <preview>3</preview>
+    <active>1</active>
+    <fadeToBlack>False</fadeToBlack>
+    <transitions>
+        <transition number="1" effect="Stinger1" duration="500" />
+        <transition number="2" effect="Merge" duration="1000" />
+        <transition number="3" effect="Wipe" duration="1000" />
+        <transition number="4" effect="CubeZoom" duration="1000" />
+    </transitions>
+    <recording>False</recording>
+    <external>False</external>
+    <streaming>False</streaming>
+    <playList>False</playList>
+    <multiCorder>False</multiCorder>
+    <fullscreen>True</fullscreen>
+    <audio>
+        <master volume="100" muted="False" meterF1="0" meterF2="0" headphonesVolume="29.98658" />
+        <busA volume="100" muted="False" meterF1="0" meterF2="0" solo="False" sendToMaster="False" />
+    </audio>
+    <dynamic>
+        <input1></input1>
+        <input2></input2>
+        <input3></input3>
+        <input4></input4>
+        <value1></value1>
+        <value2></value2>
+        <value3></value3>
+        <value4></value4>
+    </dynamic>
+</vmix>
