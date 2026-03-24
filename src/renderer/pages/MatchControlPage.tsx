@@ -21,36 +21,32 @@ import { space, radius, light, typography } from "../theme/tokens";
  */
 function TVLinkSection() {
   const [serverUrl, setServerUrl] = useState<string>('');
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    // Получаем настройки мобильного сервера
-    const loadMobileSettings = async () => {
+    // Получаем информацию о запущенном сервере
+    const loadServerInfo = async () => {
       try {
-        const result = await window.electronAPI?.getMobileSettings?.();
-        if (result?.success) {
-          const { port, selectedIP } = result;
-          // Получаем IP из network interfaces или используем выбранный
-          const interfaces = await window.electronAPI?.getNetworkInterfaces?.();
-          let ip = selectedIP;
-          
-          if (!ip && interfaces && interfaces.length > 0) {
-            // Находим первый не внутренний IPv4 адрес
-            const validInterface = interfaces.find(
-              (iface) => iface.family === 'IPv4' && !iface.internal
-            );
-            ip = validInterface?.address;
-          }
-          
-          if (ip) {
-            setServerUrl(`http://${ip}:${port || 3000}/tv`);
+        const isRunningResult = await window.electronAPI?.isMobileServerRunning?.();
+        setIsRunning(!!isRunningResult);
+
+        if (isRunningResult) {
+          const result = await window.electronAPI?.getMobileServerInfo?.();
+          if (result?.success && result.info) {
+            const { ip, port } = result.info;
+            setServerUrl(`http://${ip}:${port}/tv`);
           }
         }
       } catch (e) {
-        console.error('Ошибка загрузки настроек мобильного сервера:', e);
+        console.error('Ошибка загрузки информации о сервере:', e);
       }
     };
 
-    loadMobileSettings();
+    loadServerInfo();
+
+    // Опрос каждые 2 секунды для обновления статуса
+    const intervalId = setInterval(loadServerInfo, 2000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -62,7 +58,7 @@ function TVLinkSection() {
         <input
           type="text"
           readOnly
-          value={serverUrl || 'http://[IP]:3000/tv (сервер не запущен)'}
+          value={isRunning ? serverUrl : 'http://[IP]:3000/tv (сервер не запущен)'}
           style={{
             flex: 1,
             minWidth: "300px",
@@ -76,28 +72,31 @@ function TVLinkSection() {
         <Button
           variant="primary"
           onClick={async () => {
-            if (serverUrl) {
+            if (isRunning && serverUrl) {
               void navigator.clipboard.writeText(serverUrl);
               void window.electronAPI?.showMessage?.({ message: "Ссылка скопирована!" });
             }
           }}
+          disabled={!isRunning}
         >
           Копировать
         </Button>
         <Button
           variant="secondary"
           onClick={() => {
-            if (serverUrl) {
+            if (isRunning && serverUrl) {
               window.open(serverUrl, "_blank");
             }
           }}
+          disabled={!isRunning}
         >
           Открыть
         </Button>
       </div>
       <p style={{ margin: "0.5rem 0 0", fontSize: typography.small, color: "var(--color-text-secondary)" }}>
-        Откройте эту ссылку в браузере на втором экране для отображения счета. Размер: 1920×1080.
-        Сервер должен быть запущен в разделе "Мобильный доступ".
+        {isRunning 
+          ? `Сервер запущен: ${serverUrl}`
+          : 'Запустите сервер в разделе "Мобильный доступ"'}
       </p>
     </div>
   );
