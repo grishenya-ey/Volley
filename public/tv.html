@@ -400,11 +400,13 @@
 
           <div class="sets-container">
             <div class="sets-grid">
-              ${renderSets(sets, teamA, teamB)}
+              ${renderSets(sets, teamA, teamB, match.variant)}
             </div>
           </div>
 
-          <div class="current-set">Партия ${currentSet.setNumber}</div>
+          <div class="current-set">
+            Партия ${currentSet.setNumber}${currentSet.setNumber === getDecidingSetNumber(match.variant) ? ' (решающая)' : ''}
+          </div>
         </div>
       `;
 
@@ -483,65 +485,97 @@
       `;
     }
     
-    function renderSets(sets, teamA, teamB) {
+    function getMaxSets(variant) {
+      // Возвращаем максимальное количество партий для варианта
+      const maxSetsMap = {
+        'indoor': 5,
+        'beach': 3,
+        'snow': 3,
+        'indoor-3sets': 3
+      };
+      return maxSetsMap[variant] || 5;
+    }
+
+    function getDecidingSetNumber(variant) {
+      // Возвращаем номер решающей партии для варианта
+      const decidingSetMap = {
+        'indoor': 5,
+        'beach': 3,
+        'snow': 3,
+        'indoor-3sets': 3
+      };
+      return decidingSetMap[variant] || 5;
+    }
+
+    function renderSets(sets, teamA, teamB, variant) {
       let html = '';
-      
-      for (let i = 1; i <= 5; i++) {
+      const maxSets = getMaxSets(variant);
+
+      for (let i = 1; i <= maxSets; i++) {
         const set = sets.find(s => s.setNumber === i);
         const isCompleted = set && (set.completed || set.status === 'completed');
         const winner = isCompleted ? (set.scoreA > set.scoreB ? 'A' : set.scoreB > set.scoreA ? 'B' : null) : null;
         const winnerColor = winner === 'A' ? teamA.color : winner === 'B' ? teamB.color : '#888';
-        
+        const isDeciding = i === getDecidingSetNumber(variant);
+
         html += `
           <div class="set-box ${isCompleted ? 'completed' : ''}">
-            <div class="set-label">Партия ${i}</div>
+            <div class="set-label">Партия ${i}${isDeciding ? ' (решающая)' : ''}</div>
             <div class="set-score">${isCompleted ? `${set.scoreA} - ${set.scoreB}` : '-'}</div>
             ${winner ? `<div class="set-winner" style="color: ${winnerColor}">●</div>` : ''}
           </div>
         `;
       }
-      
+
       return html;
     }
     
     function checkSetball(match) {
-      const { currentSet } = match;
+      const { currentSet, variant } = match;
       const { scoreA, scoreB, setNumber } = currentSet;
+
+      // Получаем номер решающей партии для варианта
+      const decidingSetNumber = getDecidingSetNumber(variant);
+      const isDecidingSet = setNumber === decidingSetNumber;
       
       // Получаем порог для сетбола
-      const isDecidingSet = setNumber === 3 || setNumber === 5;
       const threshold = isDecidingSet ? 14 : 24;
-      
+
       const maxScore = Math.max(scoreA, scoreB);
       const minScore = Math.min(scoreA, scoreB);
-      
+
       if (maxScore >= threshold && maxScore - minScore >= 1 && scoreA !== scoreB) {
         return scoreA > scoreB ? 'A' : 'B';
       }
-      
+
       return null;
     }
     
     function checkMatchball(match) {
-      const { sets, currentSet } = match;
+      const { sets, currentSet, variant } = match;
       const { scoreA, scoreB, setNumber } = currentSet;
-      
+
       // Считаем победы по партиям
       const winsA = sets.filter(s => (s.completed || s.status === 'completed') && s.scoreA > s.scoreB).length;
       const winsB = sets.filter(s => (s.completed || s.status === 'completed') && s.scoreB > s.scoreA).length;
-      
-      // Для fast-indoor и beach/snow: setsToWinMatch = 2
-      // Для indoor: setsToWinMatch = 3
-      const setsToWinMatch = match.variant === 'indoor' ? 3 : 2;
+
+      // Получаем количество побед для победы в матче для варианта
+      const setsToWinMatchMap = {
+        'indoor': 3,
+        'beach': 2,
+        'snow': 2,
+        'indoor-3sets': 2
+      };
+      const setsToWinMatch = setsToWinMatchMap[variant] || 3;
       const oneWinAway = setsToWinMatch - 1;
-      
+
       if (winsA === oneWinAway || winsB === oneWinAway) {
         const setballTeam = checkSetball(match);
         if (setballTeam && ((setballTeam === 'A' && winsA === oneWinAway) || (setballTeam === 'B' && winsB === oneWinAway))) {
           return setballTeam;
         }
       }
-      
+
       return null;
     }
     
